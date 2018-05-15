@@ -14,7 +14,7 @@ exports.init = function() {
     ws.ip=req.connection.remoteAddress;
     ws.on('message',function(message){
       app.logs.add(ws.ip+' sad: '+message)
-      try { 
+      try {
         message=JSON.parse(message)
       } catch (e) {}
       for (let i in exports.handlers.message)

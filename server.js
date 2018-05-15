@@ -1,16 +1,13 @@
-var app = null
+var app = require('./server/app.js')
+app.init()
 var bs = require("browser-sync").create();
-init();
 bs.watch("./server/**/**.js").on("change", function(e) {
-  destruct();
-  init();
-
+  setTimeout(()=>{
+    app.destruct()
+    delete require.cache[require.resolve('./server/app.js')];
+    delete require.cache[require.resolve('./server.js')];
+    delete require.cache[require.resolve('./'+e)];
+    app = require('./server/app.js')
+    app.init()
+},300)
 });
-function destruct() {
-  app.destruct()
-}
-function init() {
-  delete require.cache[require.resolve('./server/app.js')]
-  app = require('./server/app.js')
-  app.init()
-}

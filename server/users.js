@@ -23,6 +23,7 @@ exports.thread = function() {
     let i=0;
     let users = ['Users: '];
     app.ws.wss.clients.forEach((ws,req)=>{
+
       i++;
       users.push(ws.ip)
     })
@@ -30,7 +31,11 @@ exports.thread = function() {
     this.list.setItems([]);
     this.list.setItems(users);
   }
-  setTimeout(function() {
+  this.timer =setTimeout(function() {
     this.thread()
   }.bind(this), 100);
+}
+
+exports.destruct = function() {
+  clearTimeout(this.timer);
 }
