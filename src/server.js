@@ -1,0 +1,1 @@
+import * from "/home/rapi/web/ws/src/app/index.js";
